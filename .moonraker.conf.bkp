@@ -54,11 +54,24 @@ origin = https://github.com/Guilouz/Creality-Helper-Script.git
 primary_branch = main
 managed_services = klipper
 
+[webcam Camera]
+location = printer
+enabled = True
+service = mjpegstreamer
+target_fps = 30
+target_fps_idle = 5
+stream_url = http://192.168.2.99/webcam/?action=stream
+snapshot_url = http://192.168.2.99/webcam/?action=snapshot
+flip_horizontal = False
+flip_vertical = False
+rotation = 0
+aspect_ratio = 16:9
+
 [timelapse]
 output_path = /usr/data/printer_data/timelapse/
 frame_path = /usr/data/printer_data/frames/
 ffmpeg_binary_path = /opt/bin/ffmpeg
-snapshoturl = http://localhost:8080/?action=snapshot
+snapshoturl = http://192.168.2.99/webcam/?action=snapshot
 
 [update_manager mainsail]
 type = web
@@ -75,4 +88,19 @@ primary_branch = main
 requirements = scripts/mobileraker-requirements.txt
 install_script = scripts/install.sh
 managed_services = mobileraker
+
+[update_manager octoeverywhere]
+type = git_repo
+channel = beta
+path = /usr/data/octoeverywhere
+origin = https://github.com/QuinnDamerell/OctoPrint-OctoEverywhere.git
+env = /usr/data/octoeverywhere-env/bin/python
+requirements = requirements.txt
+install_script = install.sh
+managed_services = 
+	octoeverywhere
+
+[announcements]
+subscriptions = 
+	octoeverywhere
 
